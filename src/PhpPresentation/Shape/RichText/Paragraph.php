@@ -310,7 +310,7 @@ class Paragraph implements ComparableInterface
         return $this;
     }
 
-    public function getLineSpacing(): int
+    public function getLineSpacing(): int|float
     {
         return $this->lineSpacing;
     }
@@ -347,7 +347,7 @@ class Paragraph implements ComparableInterface
     /**
      * Value in points.
      */
-    public function getSpacingBefore(): int
+    public function getSpacingBefore(): int|float
     {
         return $this->spacingBefore;
     }
@@ -355,7 +355,7 @@ class Paragraph implements ComparableInterface
     /**
      * Value in points.
      */
-    public function setSpacingBefore(int $spacingBefore): self
+    public function setSpacingBefore(int|float $spacingBefore): self
     {
         $this->spacingBefore = $spacingBefore;
 
@@ -365,7 +365,7 @@ class Paragraph implements ComparableInterface
     /**
      * Value in points.
      */
-    public function getSpacingAfter(): int
+    public function getSpacingAfter(): int|float
     {
         return $this->spacingAfter;
     }
@@ -373,7 +373,7 @@ class Paragraph implements ComparableInterface
     /**
      * Value in points.
      */
-    public function setSpacingAfter(int $spacingAfter): self
+    public function setSpacingAfter(int|float $spacingAfter): self
     {
         $this->spacingAfter = $spacingAfter;
 

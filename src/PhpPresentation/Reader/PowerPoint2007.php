@@ -718,7 +718,7 @@ class PowerPoint2007 implements ReaderInterface
         }
     }
 
-    protected function loadSlideBackground(XMLReader $xmlReader, DOMElement $oElement, AbstractSlide $oSlide): void
+    protected function loadSlideBackground(XMLReader $xmlReader, DOMElement $oElement, $oSlide): void
     {
         // Background color
         $oElementColor = $xmlReader->getElement('p:bgPr/a:solidFill/a:srgbClr', $oElement);
