@@ -34,8 +34,13 @@ class PptSlideMasters extends AbstractSlide
         foreach ($this->oPresentation->getAllMasterSlides() as $oMasterSlide) {
             // Add the relations from the masterSlide to the ZIP file
             $this->oZip->addFromString('ppt/slideMasters/_rels/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml.rels', $this->writeSlideMasterRelationships($oMasterSlide));
-            // Add the information from the masterSlide to the ZIP file
-            $this->oZip->addFromString('ppt/slideMasters/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml', $this->writeSlideMaster($oMasterSlide));
+            if ($oMasterSlide->getDomSlideMaster()) {
+                $this->oZip->addFromString('ppt/slideMasters/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml', $oMasterSlide->getDomSlideMaster()->saveXML());
+            }
+            else {
+                // Add the information from the masterSlide to the ZIP file
+                $this->oZip->addFromString('ppt/slideMasters/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml', $this->writeSlideMaster($oMasterSlide));
+            }
 
             // Add background image slide
             $oBkgImage = $oMasterSlide->getBackground();

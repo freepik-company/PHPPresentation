@@ -36,7 +36,7 @@ class PptSlideLayouts extends AbstractSlide
                 $this->oZip->addFromString('ppt/slideLayouts/_rels/slideLayout' . $oSlideLayout->layoutNr . '.xml.rels', $this->writeSlideLayoutRelationships($oSlideLayout));
                 $this->oZip->addFromString('ppt/slideLayouts/slideLayout' . $oSlideLayout->layoutNr . '.xml', $this->writeSlideLayout($oSlideLayout));
 
-                if ($oSlideLayout->domXML) {
+                if (isset($oSlideLayout->domXML) && $oSlideLayout->domXML) {
                     $this->oZip->addFromString('ppt/slideLayouts/slideLayout' . $oSlideLayout->layoutNr . '.xml', $oSlideLayout->domXML->saveXML());
                 } else {
                     $this->oZip->addFromString('ppt/slideLayouts/slideLayout' . $oSlideLayout->layoutNr . '.xml', $this->writeSlideLayout($oSlideLayout));

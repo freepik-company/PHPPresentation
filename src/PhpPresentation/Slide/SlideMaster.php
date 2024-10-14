@@ -74,6 +74,8 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
 
     protected $domTheme;
 
+    protected $domSlideMaster;
+
     /**
      * Create a new slideMaster.
      */
@@ -97,6 +99,16 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
             $oSchemeColor->setRGB($value);
             $this->addSchemeColor($oSchemeColor);
         }
+    }
+
+    public function loadDomSlideMaster(\DOMDocument $document)
+    {
+        $this->domSlideMaster = $document;
+    }
+
+    public function getDomSlideMaster()
+    {
+        return $this->domSlideMaster;
     }
 
     public function loadDomTheme(\DOMDocument $document)

@@ -516,9 +516,10 @@ class ImmutablePowerPoint2007 implements ReaderInterface
     {
         $xmlReader = new XMLReader();
         // @phpstan-ignore-next-line
-        if ($xmlReader->getDomFromString($sPart)) {
+        if ($masterFile = $xmlReader->getDomFromString($sPart)) {
             // Core
             $oSlideMaster = $this->oPhpPresentation->createMasterSlide();
+            $oSlideMaster->loadDomSlideMaster($masterFile);
             $oSlideMaster->setTextStyles(new TextStyle(false));
             $oSlideMaster->setRelsIndex('ppt/slideMasters/_rels/' . $baseFile . '.rels');
 

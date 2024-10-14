@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="562faa5d-bff7-4b52-a895-fe036d20c042" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Slide.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Slide.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Slide/SlideMaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Slide/SlideMaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptSlideLayouts.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptSlideLayouts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptTheme.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptTheme.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptSlideMasters.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptSlideMasters.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +51,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.laravel-idea.search-composer-json": "true",
-    "git-widget-placeholder": "feat/research",
+    "git-widget-placeholder": "#1 on feat/research",
     "last_opened_file_path": "/home/ehevilla/workspace/forks/PHPPresentation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -81,7 +82,8 @@
       <workItem from="1728368393684" duration="17850000" />
       <workItem from="1728456717013" duration="2430000" />
       <workItem from="1728545355659" duration="4753000" />
-      <workItem from="1728561714845" duration="293000" />
+      <workItem from="1728561714845" duration="7782000" />
+      <workItem from="1728631657863" duration="601000" />
     </task>
     <servers />
   </component>
