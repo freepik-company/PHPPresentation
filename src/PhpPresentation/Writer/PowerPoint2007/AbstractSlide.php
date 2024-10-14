@@ -51,6 +51,7 @@ use PhpOffice\PhpPresentation\Style\Bullet;
 use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Font;
 use PhpOffice\PhpPresentation\Style\Shadow;
+use PhpOffice\PhpPresentation\Shape\RawShape;
 
 abstract class AbstractSlide extends AbstractDecoratorWriter
 {
@@ -145,11 +146,18 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
                 $this->writeShapeAutoShape($objWriter, $shape, $shapeId);
             } elseif ($shape instanceof Group) {
                 $this->writeShapeGroup($objWriter, $shape, $shapeId);
+            } elseif ($shape instanceof RawShape) {
+                $this->writeShapeRaw($objWriter, $shape, $shapeId);
             } elseif ($shape instanceof Comment) {
             } else {
                 throw new UndefinedChartTypeException();
             }
         }
+    }
+
+    protected function writeShapeRaw(XMLWriter $objWriter, RawShape $shape, int $shapeId): void
+    {
+        $objWriter->writeRaw($shape->getRawXML());
     }
 
     /**

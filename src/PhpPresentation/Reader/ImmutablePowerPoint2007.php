@@ -54,6 +54,7 @@ use PhpOffice\PhpPresentation\Style\SchemeColor;
 use PhpOffice\PhpPresentation\Style\Shadow;
 use PhpOffice\PhpPresentation\Style\TextStyle;
 use ZipArchive;
+use PhpOffice\PhpPresentation\Shape\RawShape;
 
 /**
  * Serialized format reader.
@@ -940,10 +941,33 @@ class ImmutablePowerPoint2007 implements ReaderInterface
     }
 
     /**
+     * @param XMLReader  $document
+     * @param DOMElement $node
+     * @param AbstractSlide $oSlide
+     *
+     * @return void
+     */
+    protected function loadRawShape(XMLReader $document, DOMElement $node, $oSlide): void
+    {
+        if (!$oSlide instanceof AbstractSlide) {
+            return;
+        }
+        $oShape = new RawShape();
+        $oShape->loadXMLFromDomElement($node);
+
+        $oSlide->addShape($oShape);
+    }
+
+    /**
      * @param AbstractSlide|Note $oSlide
      */
     protected function loadShapeRichText(XMLReader $document, DOMElement $node, $oSlide): void
     {
+        if ($document->getElement('.//a:custGeom', $node) !== null) {
+            $this->loadRawShape($document, $node, $oSlide);
+            return;
+        }
+
         // Core
         $oShape = $oSlide->createRichTextShape();
         $oShape->setParagraphs([]);
@@ -1515,6 +1539,7 @@ class ImmutablePowerPoint2007 implements ReaderInterface
 
                     break;
                 default:
+                    $this->loadRawShape($xmlReader, $oNode, $oSlide);
                     //throw new FeatureNotImplementedException();
             }
         }
