@@ -669,6 +669,11 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                 $oSlideLayout->setLayoutName($oElement->getAttribute('name'));
             }
 
+            $oElement = $xmlReader->getElement('/p:sldLayout');
+            if ($oElement instanceof DOMElement && $oElement->hasAttribute('matchingName')) {
+                $oSlideLayout->setMatchingName($oElement->getAttribute('matchingName'));
+            }
+
             // Background
             $oElement = $xmlReader->getElement('/p:sldLayout/p:cSld/p:bg');
             if ($oElement instanceof DOMElement) {

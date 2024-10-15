@@ -58,6 +58,8 @@ class ImmutableSlideLayout extends AbstractSlide implements ComparableInterface,
      */
     protected $layoutName;
 
+    protected $matchingName;
+
     /**
      * Mapping of colors to the theme.
      *
@@ -96,6 +98,17 @@ class ImmutableSlideLayout extends AbstractSlide implements ComparableInterface,
         return $this;
     }
 
+    public function getMatchingName(): ?string
+    {
+        return $this->matchingName;
+    }
+
+    public function setMatchingName(string $matchingName): self
+    {
+        $this->matchingName = $matchingName;
+
+        return $this;
+    }
     public function getSlideMaster(): SlideMaster
     {
         return $this->slideMaster;

@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="562faa5d-bff7-4b52-a895-fe036d20c042" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeception.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PhpPresentation/Shape/RawShape.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Slide/ImmutableSlideLayout.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Slide/ImmutableSlideLayout.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,6 +147,7 @@
       <workItem from="1728561714845" duration="7782000" />
       <workItem from="1728631657863" duration="601000" />
       <workItem from="1728904576006" duration="10863000" />
+      <workItem from="1728974687623" duration="3827000" />
     </task>
     <servers />
   </component>
