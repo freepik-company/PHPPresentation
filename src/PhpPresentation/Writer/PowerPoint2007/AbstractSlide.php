@@ -674,9 +674,11 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         $objWriter->writeAttributeIf($element->getFont()->getBaseline() !== 0, 'baseline', $element->getFont()->getBaseline());
 
         // Color - a:solidFill
-        $objWriter->startElement('a:solidFill');
-        $this->writeColor($objWriter, $element->getFont()->getColor());
-        $objWriter->endElement();
+        if(!$element->getFont()->getColor()->isEmptyColor()) {
+            $objWriter->startElement('a:solidFill');
+            $this->writeColor($objWriter, $element->getFont()->getColor());
+            $objWriter->endElement();
+        }
 
         // Font
         // - a:latin

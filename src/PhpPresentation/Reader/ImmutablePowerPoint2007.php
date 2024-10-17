@@ -1333,6 +1333,7 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                     if ($oElementrPr->hasAttribute('baseline')) {
                         $oText->getFont()->setBaseline((int) $oElementrPr->getAttribute('baseline'));
                     }
+
                     // Color
                     $oElementSrgbClr = $document->getElement('a:solidFill/a:srgbClr', $oElementrPr);
                     if (is_object($oElementSrgbClr) && $oElementSrgbClr->hasAttribute('val')) {
@@ -1340,6 +1341,12 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                         $oColor->setRGB($oElementSrgbClr->getAttribute('val'));
                         $oText->getFont()->setColor($oColor);
                     }
+                    // no default color (by default, theme color)
+                    else {
+                        $oColor = new Color(NULL);
+                        $oText->getFont()->setColor($oColor);
+                    }
+
                     // Hyperlink
                     $oElementHlinkClick = $document->getElement('a:hlinkClick', $oElementrPr);
                     if (is_object($oElementHlinkClick)) {
