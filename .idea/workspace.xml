@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="562faa5d-bff7-4b52-a895-fe036d20c042" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Style/Color.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Style/Color.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" afterDir="false" />
-    </list>
+    <list default="true" id="562faa5d-bff7-4b52-a895-fe036d20c042" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,7 +147,7 @@
       <workItem from="1729062741142" duration="1932000" />
       <workItem from="1729149459389" duration="1417000" />
       <workItem from="1729176221309" duration="900000" />
-      <workItem from="1729177161431" duration="1496000" />
+      <workItem from="1729177161431" duration="1799000" />
     </task>
     <servers />
   </component>
