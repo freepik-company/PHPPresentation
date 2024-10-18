@@ -1361,6 +1361,11 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                         $oText->getFont()->setFormat(Font::FORMAT_LATIN);
                         $oElementFontFormat = $oElementFontFormatLatin;
                     }
+                    // no default font (by default, theme font)
+                    else {
+                        $oText->getFont()->setFormat(NULL);
+                        $oElementFontFormat = $oElementFontFormatLatin;
+                    }
                     $oElementFontFormatEastAsian = $document->getElement('a:ea', $oElementrPr);
                     if (is_object($oElementFontFormatEastAsian)) {
                         $oText->getFont()->setFormat(Font::FORMAT_EAST_ASIAN);

@@ -521,17 +521,23 @@ class Font implements ComparableInterface
     /**
      * Set format.
      */
-    public function setFormat(string $value = self::FORMAT_LATIN): self
+    public function setFormat(?string $value = self::FORMAT_LATIN): self
     {
         if (in_array($value, [
             self::FORMAT_COMPLEX_SCRIPT,
             self::FORMAT_EAST_ASIAN,
             self::FORMAT_LATIN,
+            NULL
         ])) {
             $this->format = $value;
         }
 
         return $this;
+    }
+
+    public function hasFormat(): bool
+    {
+        return $this->format !== NULL;
     }
 
     /**

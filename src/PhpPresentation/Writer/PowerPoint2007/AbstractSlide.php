@@ -52,6 +52,7 @@ use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Font;
 use PhpOffice\PhpPresentation\Style\Shadow;
 use PhpOffice\PhpPresentation\Shape\RawShape;
+use PhpOffice\PhpPresentation\Exception\InvalidFileFormatException;
 
 abstract class AbstractSlide extends AbstractDecoratorWriter
 {
@@ -674,7 +675,7 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         $objWriter->writeAttributeIf($element->getFont()->getBaseline() !== 0, 'baseline', $element->getFont()->getBaseline());
 
         // Color - a:solidFill
-        if(!$element->getFont()->getColor()->isNullColor()) {
+        if($element->getFont()->getColor()->hasColor()) {
             $objWriter->startElement('a:solidFill');
             $this->writeColor($objWriter, $element->getFont()->getColor());
             $objWriter->endElement();
@@ -684,26 +685,28 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         // - a:latin
         // - a:ea
         // - a:cs
-        $objWriter->startElement('a:' . $element->getFont()->getFormat());
-        $objWriter->writeAttribute('typeface', $element->getFont()->getName());
-        if ($element->getFont()->getPanose() !== '') {
-            $panose = array_map(function (string $value) {
-                return '0' . $value;
-            }, str_split($element->getFont()->getPanose()));
+        if ($element->getFont()->hasFormat()) {
+            $objWriter->startElement('a:' . $element->getFont()->getFormat());
+            $objWriter->writeAttribute('typeface', $element->getFont()->getName());
+            if ($element->getFont()->getPanose() !== '') {
+                $panose = array_map(function (string $value) {
+                    return '0' . $value;
+                }, str_split($element->getFont()->getPanose()));
 
-            $objWriter->writeAttribute('panose', implode('', $panose));
+                $objWriter->writeAttribute('panose', implode('', $panose));
+            }
+            $objWriter->writeAttributeIf(
+                $element->getFont()->getPitchFamily() !== 0,
+                'pitchFamily',
+                $element->getFont()->getPitchFamily()
+            );
+            $objWriter->writeAttributeIf(
+                $element->getFont()->getCharset() !== Font::CHARSET_DEFAULT,
+                'charset',
+                dechex($element->getFont()->getCharset())
+            );
+            $objWriter->endElement();
         }
-        $objWriter->writeAttributeIf(
-            $element->getFont()->getPitchFamily() !== 0,
-            'pitchFamily',
-            $element->getFont()->getPitchFamily()
-        );
-        $objWriter->writeAttributeIf(
-            $element->getFont()->getCharset() !== Font::CHARSET_DEFAULT,
-            'charset',
-            dechex($element->getFont()->getCharset())
-        );
-        $objWriter->endElement();
 
         // a:hlinkClick
         $this->writeHyperlink($objWriter, $element);
