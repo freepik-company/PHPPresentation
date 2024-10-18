@@ -64,7 +64,7 @@ class Color implements ComparableInterface
         $this->argb = $pARGB;
     }
 
-    public function hasColor()
+    public function hasColor(): bool
     {
         return $this->argb !== NULL;
     }

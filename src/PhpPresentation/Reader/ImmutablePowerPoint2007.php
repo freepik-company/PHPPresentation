@@ -1318,8 +1318,11 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                     if ($oElementrPr->hasAttribute('strike')) {
                         $oText->getFont()->setStrikethrough($oElementrPr->getAttribute('strike'));
                     }
+
                     if ($oElementrPr->hasAttribute('sz')) {
                         $oText->getFont()->setSize((int) ((int) $oElementrPr->getAttribute('sz') / 100));
+                    } else {
+                        $oText->getFont()->setSize(NULL);
                     }
                     if ($oElementrPr->hasAttribute('u')) {
                         $oText->getFont()->setUnderline($oElementrPr->getAttribute('u'));

@@ -660,7 +660,9 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         $objWriter->writeAttribute('strike', $element->getFont()->getStrikethrough());
 
         // Size
-        $objWriter->writeAttribute('sz', ($element->getFont()->getSize() * 100));
+        if($element->getFont()->hasSize()) {
+            $objWriter->writeAttribute('sz', ($element->getFont()->getSize() * 100));
+        }
 
         // Character spacing
         $objWriter->writeAttribute('spc', $element->getFont()->getCharacterSpacing());
