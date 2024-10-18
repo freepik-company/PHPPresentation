@@ -90,7 +90,7 @@ class Slide extends AbstractSlide implements ComparableInterface, ShapeContainer
     /**
      * Get slide layout.
      */
-    public function getSlideLayout(): ?SlideLayout
+    public function getSlideLayout()//: ?SlideLayout
     {
         return $this->slideLayout;
     }
@@ -98,7 +98,7 @@ class Slide extends AbstractSlide implements ComparableInterface, ShapeContainer
     /**
      * Set slide layout.
      */
-    public function setSlideLayout(SlideLayout $layout): self
+    public function setSlideLayout(/*SlideLayout*/ $layout): self
     {
         $this->slideLayout = $layout;
 

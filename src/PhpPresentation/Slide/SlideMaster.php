@@ -72,6 +72,10 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
         'folHlink' => '800080',
     ];
 
+    protected $domTheme;
+
+    protected $domSlideMaster;
+
     /**
      * Create a new slideMaster.
      */
@@ -97,6 +101,26 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
         }
     }
 
+    public function loadDomSlideMaster(\DOMDocument $document)
+    {
+        $this->domSlideMaster = $document;
+    }
+
+    public function getDomSlideMaster()
+    {
+        return $this->domSlideMaster;
+    }
+
+    public function loadDomTheme(\DOMDocument $document)
+    {
+        $this->domTheme = $document;
+    }
+
+    public function getDomTheme()
+    {
+        return $this->domTheme;
+    }
+
     /**
      * Create a slideLayout and add it to this presentation.
      */
@@ -111,7 +135,7 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
     /**
      * Add slideLayout.
      */
-    public function addSlideLayout(?SlideLayout $slideLayout = null): SlideLayout
+    public function addSlideLayout(/*?SlideLayout*/ $slideLayout = null) //: SlideLayout
     {
         $this->slideLayouts[] = $slideLayout;
 

@@ -36,6 +36,12 @@ class PptSlideLayouts extends AbstractSlide
                 $this->oZip->addFromString('ppt/slideLayouts/_rels/slideLayout' . $oSlideLayout->layoutNr . '.xml.rels', $this->writeSlideLayoutRelationships($oSlideLayout));
                 $this->oZip->addFromString('ppt/slideLayouts/slideLayout' . $oSlideLayout->layoutNr . '.xml', $this->writeSlideLayout($oSlideLayout));
 
+                if (isset($oSlideLayout->domXML) && $oSlideLayout->domXML) {
+                    $this->oZip->addFromString('ppt/slideLayouts/slideLayout' . $oSlideLayout->layoutNr . '.xml', $oSlideLayout->domXML->saveXML());
+                } else {
+                    $this->oZip->addFromString('ppt/slideLayouts/slideLayout' . $oSlideLayout->layoutNr . '.xml', $this->writeSlideLayout($oSlideLayout));
+                }
+
                 // Add background image slide
                 $oBkgImage = $oSlideLayout->getBackground();
                 if ($oBkgImage instanceof Image) {
@@ -52,7 +58,7 @@ class PptSlideLayouts extends AbstractSlide
      *
      * @return string XML Output
      */
-    protected function writeSlideLayoutRelationships(SlideLayout $oSlideLayout): string
+    protected function writeSlideLayoutRelationships(/*SlideLayout*/ $oSlideLayout): string
     {
         // Create XML writer
         $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
@@ -92,7 +98,7 @@ class PptSlideLayouts extends AbstractSlide
      *
      * @return string XML Output
      */
-    protected function writeSlideLayout(SlideLayout $pSlideLayout): string
+    protected function writeSlideLayout(/*SlideLayout*/ $pSlideLayout): string
     {
         // Create XML writer
         $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);

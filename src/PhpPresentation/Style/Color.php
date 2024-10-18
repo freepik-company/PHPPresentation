@@ -38,6 +38,7 @@ class Color implements ComparableInterface
     public const COLOR_YELLOW = 'FFFFFF00';
     public const COLOR_DARKYELLOW = 'FF808000';
 
+
     /**
      * ARGB - Alpha RGB.
      *
@@ -61,6 +62,11 @@ class Color implements ComparableInterface
     {
         // Initialise values
         $this->argb = $pARGB;
+    }
+
+    public function hasColor(): bool
+    {
+        return $this->argb !== NULL;
     }
 
     /**
