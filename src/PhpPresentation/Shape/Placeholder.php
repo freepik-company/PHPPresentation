@@ -52,7 +52,7 @@ class Placeholder
      */
     protected $type;
 
-    public function __construct(string $type, string $idx = null)
+    public function __construct(string $type, ?string $idx = null)
     {
         $this->type = $type;
         if (is_numeric($idx)) {
