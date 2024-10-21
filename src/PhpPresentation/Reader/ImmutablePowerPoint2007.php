@@ -496,6 +496,7 @@ class ImmutablePowerPoint2007 implements ReaderInterface
 
             // Shapes
             $arrayElements = $xmlReader->getElements('/p:sld/p:cSld/p:spTree/*');
+
             $this->loadSlideShapes($oSlide, $arrayElements, $xmlReader);
 
             // Layout
@@ -1014,7 +1015,7 @@ class ImmutablePowerPoint2007 implements ReaderInterface
         $oElement = $document->getElement('p:nvSpPr/p:nvPr/p:ph', $node);
         if ($oElement instanceof DOMElement) {
             if ($oElement->hasAttribute('type')) {
-                $placeholder = new Placeholder($oElement->getAttribute('type'));
+                $placeholder = new Placeholder($oElement->getAttribute('type'), $oElement->getAttribute('idx'));
                 $oShape->setPlaceHolder($placeholder);
             }
         }

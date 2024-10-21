@@ -7,8 +7,7 @@
     <list default="true" id="562faa5d-bff7-4b52-a895-fe036d20c042" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Style/Color.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Style/Color.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Style/Font.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Style/Font.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Shape/Placeholder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Shape/Placeholder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,6 +154,7 @@
       <workItem from="1729176221309" duration="900000" />
       <workItem from="1729177161431" duration="2429000" />
       <workItem from="1729239813525" duration="3825000" />
+      <workItem from="1729498228729" duration="8820000" />
     </task>
     <servers />
   </component>

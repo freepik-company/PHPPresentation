@@ -739,6 +739,9 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         if ($shape->isPlaceholder()) {
             $objWriter->startElement('p:ph');
             $objWriter->writeAttribute('type', $shape->getPlaceholder()->getType());
+            if (null !== $shape->getPlaceholder()->getIdx()) {
+                $objWriter->writeAttribute('idx', $shape->getPlaceholder()->getIdx());
+            }
             $objWriter->endElement();
         }
         $objWriter->endElement();
