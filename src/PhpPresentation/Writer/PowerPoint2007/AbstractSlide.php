@@ -51,6 +51,8 @@ use PhpOffice\PhpPresentation\Style\Bullet;
 use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Font;
 use PhpOffice\PhpPresentation\Style\Shadow;
+use PhpOffice\PhpPresentation\Shape\RawShape;
+use PhpOffice\PhpPresentation\Exception\InvalidFileFormatException;
 
 abstract class AbstractSlide extends AbstractDecoratorWriter
 {
@@ -145,11 +147,18 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
                 $this->writeShapeAutoShape($objWriter, $shape, $shapeId);
             } elseif ($shape instanceof Group) {
                 $this->writeShapeGroup($objWriter, $shape, $shapeId);
+            } elseif ($shape instanceof RawShape) {
+                $this->writeShapeRaw($objWriter, $shape, $shapeId);
             } elseif ($shape instanceof Comment) {
             } else {
                 throw new UndefinedChartTypeException();
             }
         }
+    }
+
+    protected function writeShapeRaw(XMLWriter $objWriter, RawShape $shape, int $shapeId): void
+    {
+        $objWriter->writeRaw($shape->getRawXML());
     }
 
     /**
@@ -651,7 +660,9 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         $objWriter->writeAttribute('strike', $element->getFont()->getStrikethrough());
 
         // Size
-        $objWriter->writeAttribute('sz', ($element->getFont()->getSize() * 100));
+        if($element->getFont()->hasSize()) {
+            $objWriter->writeAttribute('sz', ($element->getFont()->getSize() * 100));
+        }
 
         // Character spacing
         $objWriter->writeAttribute('spc', $element->getFont()->getCharacterSpacing());
@@ -666,34 +677,38 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         $objWriter->writeAttributeIf($element->getFont()->getBaseline() !== 0, 'baseline', $element->getFont()->getBaseline());
 
         // Color - a:solidFill
-        $objWriter->startElement('a:solidFill');
-        $this->writeColor($objWriter, $element->getFont()->getColor());
-        $objWriter->endElement();
+        if($element->getFont()->getColor()->hasColor()) {
+            $objWriter->startElement('a:solidFill');
+            $this->writeColor($objWriter, $element->getFont()->getColor());
+            $objWriter->endElement();
+        }
 
         // Font
         // - a:latin
         // - a:ea
         // - a:cs
-        $objWriter->startElement('a:' . $element->getFont()->getFormat());
-        $objWriter->writeAttribute('typeface', $element->getFont()->getName());
-        if ($element->getFont()->getPanose() !== '') {
-            $panose = array_map(function (string $value) {
-                return '0' . $value;
-            }, str_split($element->getFont()->getPanose()));
+        if ($element->getFont()->hasFormat()) {
+            $objWriter->startElement('a:' . $element->getFont()->getFormat());
+            $objWriter->writeAttribute('typeface', $element->getFont()->getName());
+            if ($element->getFont()->getPanose() !== '') {
+                $panose = array_map(function (string $value) {
+                    return '0' . $value;
+                }, str_split($element->getFont()->getPanose()));
 
-            $objWriter->writeAttribute('panose', implode('', $panose));
+                $objWriter->writeAttribute('panose', implode('', $panose));
+            }
+            $objWriter->writeAttributeIf(
+                $element->getFont()->getPitchFamily() !== 0,
+                'pitchFamily',
+                $element->getFont()->getPitchFamily()
+            );
+            $objWriter->writeAttributeIf(
+                $element->getFont()->getCharset() !== Font::CHARSET_DEFAULT,
+                'charset',
+                dechex($element->getFont()->getCharset())
+            );
+            $objWriter->endElement();
         }
-        $objWriter->writeAttributeIf(
-            $element->getFont()->getPitchFamily() !== 0,
-            'pitchFamily',
-            $element->getFont()->getPitchFamily()
-        );
-        $objWriter->writeAttributeIf(
-            $element->getFont()->getCharset() !== Font::CHARSET_DEFAULT,
-            'charset',
-            dechex($element->getFont()->getCharset())
-        );
-        $objWriter->endElement();
 
         // a:hlinkClick
         $this->writeHyperlink($objWriter, $element);
@@ -724,6 +739,9 @@ abstract class AbstractSlide extends AbstractDecoratorWriter
         if ($shape->isPlaceholder()) {
             $objWriter->startElement('p:ph');
             $objWriter->writeAttribute('type', $shape->getPlaceholder()->getType());
+            if (null !== $shape->getPlaceholder()->getIdx()) {
+                $objWriter->writeAttribute('idx', $shape->getPlaceholder()->getIdx());
+            }
             $objWriter->endElement();
         }
         $objWriter->endElement();

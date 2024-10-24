@@ -32,10 +32,17 @@ class PptSlideMasters extends AbstractSlide
     public function render(): ZipInterface
     {
         foreach ($this->oPresentation->getAllMasterSlides() as $oMasterSlide) {
-            // Add the relations from the masterSlide to the ZIP file
-            $this->oZip->addFromString('ppt/slideMasters/_rels/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml.rels', $this->writeSlideMasterRelationships($oMasterSlide));
-            // Add the information from the masterSlide to the ZIP file
-            $this->oZip->addFromString('ppt/slideMasters/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml', $this->writeSlideMaster($oMasterSlide));
+            // from ImmutablePowerPoint2007
+            if ($oMasterSlide->getDomSlideMaster()) {
+                $this->oZip->addFromString('ppt/slideMasters/_rels/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml.rels', $this->writeImmutableSlideMasterRelationships($oMasterSlide));
+                $this->oZip->addFromString('ppt/slideMasters/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml', $oMasterSlide->getDomSlideMaster()->saveXML());
+            }
+            else {
+                // Add the relations from the masterSlide to the ZIP file
+                $this->oZip->addFromString('ppt/slideMasters/_rels/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml.rels', $this->writeSlideMasterRelationships($oMasterSlide));
+                // Add the information from the masterSlide to the ZIP file
+                $this->oZip->addFromString('ppt/slideMasters/slideMaster' . $oMasterSlide->getRelsIndex() . '.xml', $this->writeSlideMaster($oMasterSlide));
+            }
 
             // Add background image slide
             $oBkgImage = $oMasterSlide->getBackground();
@@ -45,6 +52,35 @@ class PptSlideMasters extends AbstractSlide
         }
 
         return $this->oZip;
+    }
+
+    public function writeImmutableSlideMasterRelationships(SlideMaster $oMasterSlide): string
+    {
+        if ($relations = $oMasterSlide->getFileRelations()) {
+            // Create XML writer
+            $objWriter = new XMLWriter(XMLWriter::STORAGE_MEMORY);
+            // XML header
+            $objWriter->startDocument('1.0', 'UTF-8', 'yes');
+            // Relationships
+            $objWriter->startElement('Relationships');
+            $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
+
+            foreach ($relations as $relId => $relation) {
+                preg_match('/rId(\d+)/', $relId, $matches);
+                $number = $matches[1] ?? 0;
+                $this->writeRelationship(
+                    $objWriter,
+                    (int)$number,
+                    $relation['Type'],
+                    $relation['Target']);
+                $objWriter->endElement();
+            }
+            $rels = $objWriter->getData();
+        } else {
+            $rels = $this->writeSlideMasterRelationships($oMasterSlide);
+        }
+
+        return $rels;
     }
 
     /**

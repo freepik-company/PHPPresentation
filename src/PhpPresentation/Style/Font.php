@@ -300,11 +300,16 @@ class Font implements ComparableInterface
     /**
      * Set Size.
      */
-    public function setSize(int $pValue = 10): self
+    public function setSize(?int $pValue = 10): self
     {
         $this->size = $pValue;
 
         return $this;
+    }
+
+    public function hasSize(): bool
+    {
+        return $this->size !== NULL;
     }
 
     /**
@@ -521,17 +526,23 @@ class Font implements ComparableInterface
     /**
      * Set format.
      */
-    public function setFormat(string $value = self::FORMAT_LATIN): self
+    public function setFormat(?string $value = self::FORMAT_LATIN): self
     {
         if (in_array($value, [
             self::FORMAT_COMPLEX_SCRIPT,
             self::FORMAT_EAST_ASIAN,
             self::FORMAT_LATIN,
+            NULL
         ])) {
             $this->format = $value;
         }
 
         return $this;
+    }
+
+    public function hasFormat(): bool
+    {
+        return $this->format !== NULL;
     }
 
     /**
