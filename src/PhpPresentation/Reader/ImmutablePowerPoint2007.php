@@ -420,8 +420,8 @@ class ImmutablePowerPoint2007 implements ReaderInterface
             if (!empty($pathMasterSlide)) {
                 $pptMasterSlide = $this->oZip->getFromName('ppt/' . $pathMasterSlide);
                 if (false !== $pptMasterSlide) {
-                    $this->loadRels('ppt/slideMasters/_rels/' . basename($pathMasterSlide) . '.rels');
-                    $this->loadMasterSlide($pptMasterSlide, basename($pathMasterSlide));
+                    $masterRelations = $this->loadRels('ppt/slideMasters/_rels/' . basename($pathMasterSlide) . '.rels');
+                    $this->loadMasterSlide($pptMasterSlide, basename($pathMasterSlide), $masterRelations);
                 }
             }
         }
@@ -487,6 +487,7 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                         // Background
                         $oBackground = new Slide\Background\Image();
                         $oBackground->setPath($tmpBkgImg);
+                        $oBackground->setFileProperties($pathImage);
                         // Slide Background
                         $oSlide = $this->oPhpPresentation->getActiveSlide();
                         $oSlide->setBackground($oBackground);
@@ -514,19 +515,23 @@ class ImmutablePowerPoint2007 implements ReaderInterface
         }
     }
 
-    protected function loadMasterSlide(string $sPart, string $baseFile): void
+    protected function loadMasterSlide(string $sPart, string $baseFile, $masterRelations = null): void
     {
         $xmlReader = new XMLReader();
         // @phpstan-ignore-next-line
         if ($masterFile = $xmlReader->getDomFromString($sPart)) {
             // Core
             $oSlideMaster = $this->oPhpPresentation->createMasterSlide();
+            if ($masterRelations) {
+                $oSlideMaster->setFileRelations($masterRelations);
+            }
             $oSlideMaster->loadDomSlideMaster($masterFile);
             $oSlideMaster->setTextStyles(new TextStyle(false));
             $oSlideMaster->setRelsIndex('ppt/slideMasters/_rels/' . $baseFile . '.rels');
 
             // Background
             $oElement = $xmlReader->getElement('/p:sldMaster/p:cSld/p:bg');
+
             if ($oElement instanceof DOMElement) {
                 $this->loadSlideBackground($xmlReader, $oElement, $oSlideMaster);
             }
@@ -646,7 +651,7 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                     $pptLayoutSlide = $this->oZip->getFromName('ppt/' . substr($pathLayoutSlide, strrpos($pathLayoutSlide, '../') + 3));
                     if (false !== $pptLayoutSlide) {
                         $this->loadRels('ppt/slideLayouts/_rels/' . basename($pathLayoutSlide) . '.rels');
-                        $oSlideMaster->addSlideLayout(
+                          $oSlideMaster->addSlideLayout(
                             $this->loadLayoutSlide($pptLayoutSlide, basename($pathLayoutSlide), $oSlideMaster)
                         );
                     }
@@ -761,6 +766,8 @@ class ImmutablePowerPoint2007 implements ReaderInterface
 
         // Background image
         $oElementImage = $xmlReader->getElement('p:bgPr/a:blipFill/a:blip', $oElement);
+
+
         if ($oElementImage instanceof DOMElement) {
             $relImg = $this->arrayRels[$oSlide->getRelsIndex()][$oElementImage->getAttribute('r:embed')];
             if (is_array($relImg)) {
@@ -775,11 +782,13 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                 $pathImage = implode('/', $pathImage);
                 $contentImg = $this->oZip->getFromName($pathImage);
 
+
                 $tmpBkgImg = tempnam(sys_get_temp_dir(), 'PhpPresentationReaderPpt2007Bkg');
                 file_put_contents($tmpBkgImg, $contentImg);
                 // Background
                 $oBackground = new Slide\Background\Image();
                 $oBackground->setPath($tmpBkgImg);
+                $oBackground->setFileProperties(basename($pathImage));
                 // Slide Background
                 $oSlide->setBackground($oBackground);
             }
@@ -1505,9 +1514,10 @@ class ImmutablePowerPoint2007 implements ReaderInterface
         return null;
     }
 
-    protected function loadRels(string $fileRels): void
+    protected function loadRels(string $fileRels): array
     {
         $sPart = $this->oZip->getFromName($fileRels);
+        $relations = [];
         if (false !== $sPart) {
             $xmlReader = new XMLReader();
             // @phpstan-ignore-next-line
@@ -1516,6 +1526,10 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                     if (!($oNode instanceof DOMElement)) {
                         continue;
                     }
+                    $relations[$oNode->getAttribute('Id')] = [
+                        'Target' => $oNode->getAttribute('Target'),
+                        'Type' => $oNode->getAttribute('Type'),
+                    ];
                     $this->arrayRels[$fileRels][$oNode->getAttribute('Id')] = [
                         'Target' => $oNode->getAttribute('Target'),
                         'Type' => $oNode->getAttribute('Type'),
@@ -1523,6 +1537,8 @@ class ImmutablePowerPoint2007 implements ReaderInterface
                 }
             }
         }
+
+        return $relations;
     }
 
     public function loadDomXMLTree(Slide\ImmutableSlideLayout $layout, \DOMDocument $domDocument)

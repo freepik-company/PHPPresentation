@@ -77,6 +77,11 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
     protected $domSlideMaster;
 
     /**
+     * @var array
+     */
+    private $relations;
+
+    /**
      * Create a new slideMaster.
      */
     public function __construct(?PhpPresentation $pParent = null)
@@ -99,6 +104,16 @@ class SlideMaster extends AbstractSlide implements ComparableInterface, ShapeCon
             $oSchemeColor->setRGB($value);
             $this->addSchemeColor($oSchemeColor);
         }
+    }
+
+    public function setFileRelations(array $relations): void
+    {
+        $this->relations = $relations;
+    }
+
+    public function getFileRelations(): array
+    {
+        return $this->relations;
     }
 
     public function loadDomSlideMaster(\DOMDocument $document)

@@ -7,8 +7,10 @@
     <list default="true" id="562faa5d-bff7-4b52-a895-fe036d20c042" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Reader/ImmutablePowerPoint2007.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Shape/Placeholder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Shape/Placeholder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/AbstractSlide.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Slide/Background/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Slide/Background/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Slide/SlideMaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Slide/SlideMaster.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/ImmutablePowerPoint2007.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/ImmutablePowerPoint2007.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptSlideMasters.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/PhpPresentation/Writer/PowerPoint2007/PptSlideMasters.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,6 +157,11 @@
       <workItem from="1729177161431" duration="2429000" />
       <workItem from="1729239813525" duration="3825000" />
       <workItem from="1729498228729" duration="8820000" />
+      <workItem from="1729577914378" duration="4511000" />
+      <workItem from="1729670031911" duration="1224000" />
+      <workItem from="1729690573028" duration="613000" />
+      <workItem from="1729695859010" duration="2051000" />
+      <workItem from="1729751789366" duration="8344000" />
     </task>
     <servers />
   </component>

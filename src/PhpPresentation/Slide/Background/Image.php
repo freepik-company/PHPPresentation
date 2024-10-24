@@ -46,6 +46,10 @@ class Image extends AbstractBackground
      */
     protected $width;
 
+    protected $extension;
+
+    protected $fileName;
+
     /**
      * Get Path.
      */
@@ -87,11 +91,26 @@ class Image extends AbstractBackground
         return $this->path ? basename($this->path) : '';
     }
 
+    public function setFileProperties(string $filename): void
+    {
+        $exploded = explode('.', $filename);
+        if($extension = $exploded[count($exploded) - 1]) {
+            $this->extension = $extension;
+        }
+        if ($name = $exploded[0]) {
+            $this->fileName = $name;
+        }
+    }
+
     /**
      * Get Extension.
      */
     public function getExtension(): string
     {
+        if ($this->extension) {
+            return $this->extension;
+        }
+
         $exploded = explode('.', $this->getFilename());
 
         return $exploded[count($exploded) - 1];
@@ -106,6 +125,7 @@ class Image extends AbstractBackground
      */
     public function getIndexedFilename($numSlide)
     {
-        return 'background_' . $numSlide . '.' . $this->getExtension();
+        $fileName = $this->fileName ?? 'background_' . $numSlide;
+        return $fileName. '.' . $this->getExtension();
     }
 }
